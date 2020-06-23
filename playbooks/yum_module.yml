@@ -1,0 +1,30 @@
+---
+- name: host detaisl
+  hosts: web
+  become: yes
+  tasks: 
+    - name: Installing the latest version of Apache
+      yum:
+        name: httpd
+        state: latest
+    - name: Installing packages
+      yum: 
+        name: "{{ packages }}"
+      vars: 
+        packages: 
+        - httpd
+        - httpd-tools
+        - dnf
+        - vim
+    - name : removing apache 
+      yum: 
+        name: httpd
+        state: absent
+
+    - name: Downloading the nginx packagebut not install
+      yum:  
+        name: 
+           - nginx
+        state: latest
+        download_only: true
+
